@@ -1,0 +1,3 @@
+bazel-bin/go/tools/gazelle/gazelle/gazelle -external vendored
+
+bazel build docker2aci
