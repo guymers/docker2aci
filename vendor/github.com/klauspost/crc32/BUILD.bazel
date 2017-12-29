@@ -1,0 +1,50 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "crc32.go",
+    ] + select({
+        "@io_bazel_rules_go//go/platform:386": [
+            "crc32_generic.go",
+        ],
+        "@io_bazel_rules_go//go/platform:amd64": [
+            "crc32_amd64.go",
+            "crc32_amd64.s",
+        ],
+        "@io_bazel_rules_go//go/platform:amd64p32": [
+            "crc32_amd64p32.go",
+            "crc32_amd64p32.s",
+        ],
+        "@io_bazel_rules_go//go/platform:arm": [
+            "crc32_generic.go",
+        ],
+        "@io_bazel_rules_go//go/platform:arm64": [
+            "crc32_generic.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mips": [
+            "crc32_generic.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mips64": [
+            "crc32_generic.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mips64le": [
+            "crc32_generic.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mipsle": [
+            "crc32_generic.go",
+        ],
+        "@io_bazel_rules_go//go/platform:ppc64": [
+            "crc32_generic.go",
+        ],
+        "@io_bazel_rules_go//go/platform:ppc64le": [
+            "crc32_generic.go",
+        ],
+        "@io_bazel_rules_go//go/platform:s390x": [
+            "crc32_generic.go",
+        ],
+        "//conditions:default": [],
+    }),
+    importpath = "github.com/klauspost/crc32",
+    visibility = ["//visibility:public"],
+)

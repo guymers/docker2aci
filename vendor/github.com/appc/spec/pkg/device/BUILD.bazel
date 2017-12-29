@@ -1,0 +1,26 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = select({
+        "@io_bazel_rules_go//go/platform:darwin": [
+            "device_posix.go",
+        ],
+        "@io_bazel_rules_go//go/platform:freebsd": [
+            "device_posix.go",
+        ],
+        "@io_bazel_rules_go//go/platform:linux": [
+            "device_linux.go",
+        ],
+        "@io_bazel_rules_go//go/platform:netbsd": [
+            "device_posix.go",
+        ],
+        "@io_bazel_rules_go//go/platform:openbsd": [
+            "device_posix.go",
+        ],
+        "//conditions:default": [],
+    }),
+    cgo = True,
+    importpath = "github.com/appc/spec/pkg/device",
+    visibility = ["//visibility:public"],
+)

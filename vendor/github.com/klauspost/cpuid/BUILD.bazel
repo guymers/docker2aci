@@ -1,0 +1,51 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "cpuid.go",
+        "generate.go",
+    ] + select({
+        "@io_bazel_rules_go//go/platform:386": [
+            "cpuid_386.s",
+            "detect_intel.go",
+        ],
+        "@io_bazel_rules_go//go/platform:amd64": [
+            "cpuid_amd64.s",
+            "detect_intel.go",
+        ],
+        "@io_bazel_rules_go//go/platform:amd64p32": [
+            "detect_ref.go",
+        ],
+        "@io_bazel_rules_go//go/platform:arm": [
+            "detect_ref.go",
+        ],
+        "@io_bazel_rules_go//go/platform:arm64": [
+            "detect_ref.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mips": [
+            "detect_ref.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mips64": [
+            "detect_ref.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mips64le": [
+            "detect_ref.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mipsle": [
+            "detect_ref.go",
+        ],
+        "@io_bazel_rules_go//go/platform:ppc64": [
+            "detect_ref.go",
+        ],
+        "@io_bazel_rules_go//go/platform:ppc64le": [
+            "detect_ref.go",
+        ],
+        "@io_bazel_rules_go//go/platform:s390x": [
+            "detect_ref.go",
+        ],
+        "//conditions:default": [],
+    }),
+    importpath = "github.com/klauspost/cpuid",
+    visibility = ["//visibility:public"],
+)

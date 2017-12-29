@@ -1,0 +1,3 @@
+~/.go/bin/gazelle -go_prefix github.com/appc/docker2aci -external vendored
+
+bazel build docker2aci

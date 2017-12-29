@@ -1,0 +1,44 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "doc.go",
+        "tarheader.go",
+    ] + select({
+        "@io_bazel_rules_go//go/platform:darwin": [
+            "pop_darwin.go",
+        ],
+        "@io_bazel_rules_go//go/platform:freebsd": [
+            "pop_posix.go",
+        ],
+        "@io_bazel_rules_go//go/platform:linux": [
+            "pop_linux.go",
+            "pop_posix.go",
+        ],
+        "@io_bazel_rules_go//go/platform:netbsd": [
+            "pop_posix.go",
+        ],
+        "@io_bazel_rules_go//go/platform:openbsd": [
+            "pop_posix.go",
+        ],
+        "//conditions:default": [],
+    }),
+    importpath = "github.com/appc/spec/pkg/tarheader",
+    visibility = ["//visibility:public"],
+    deps = select({
+        "@io_bazel_rules_go//go/platform:freebsd": [
+            "//vendor/github.com/appc/spec/pkg/device:go_default_library",
+        ],
+        "@io_bazel_rules_go//go/platform:linux": [
+            "//vendor/github.com/appc/spec/pkg/device:go_default_library",
+        ],
+        "@io_bazel_rules_go//go/platform:netbsd": [
+            "//vendor/github.com/appc/spec/pkg/device:go_default_library",
+        ],
+        "@io_bazel_rules_go//go/platform:openbsd": [
+            "//vendor/github.com/appc/spec/pkg/device:go_default_library",
+        ],
+        "//conditions:default": [],
+    }),
+)

@@ -1,0 +1,63 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "copy.go",
+        "deflate.go",
+        "dict_decoder.go",
+        "huffman_bit_writer.go",
+        "huffman_code.go",
+        "inflate.go",
+        "reverse_bits.go",
+        "snappy.go",
+        "token.go",
+    ] + select({
+        "@io_bazel_rules_go//go/platform:386": [
+            "crc32_noasm.go",
+        ],
+        "@io_bazel_rules_go//go/platform:amd64": [
+            "crc32_amd64.go",
+            "crc32_amd64.s",
+        ],
+        "@io_bazel_rules_go//go/platform:amd64p32": [
+            "crc32_noasm.go",
+        ],
+        "@io_bazel_rules_go//go/platform:arm": [
+            "crc32_noasm.go",
+        ],
+        "@io_bazel_rules_go//go/platform:arm64": [
+            "crc32_noasm.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mips": [
+            "crc32_noasm.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mips64": [
+            "crc32_noasm.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mips64le": [
+            "crc32_noasm.go",
+        ],
+        "@io_bazel_rules_go//go/platform:mipsle": [
+            "crc32_noasm.go",
+        ],
+        "@io_bazel_rules_go//go/platform:ppc64": [
+            "crc32_noasm.go",
+        ],
+        "@io_bazel_rules_go//go/platform:ppc64le": [
+            "crc32_noasm.go",
+        ],
+        "@io_bazel_rules_go//go/platform:s390x": [
+            "crc32_noasm.go",
+        ],
+        "//conditions:default": [],
+    }),
+    importpath = "github.com/klauspost/compress/flate",
+    visibility = ["//visibility:public"],
+    deps = select({
+        "@io_bazel_rules_go//go/platform:amd64": [
+            "//vendor/github.com/klauspost/cpuid:go_default_library",
+        ],
+        "//conditions:default": [],
+    }),
+)
