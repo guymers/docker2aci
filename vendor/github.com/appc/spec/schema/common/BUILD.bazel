@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["common.go"],
+    importmap = "github.com/appc/docker2aci/vendor/github.com/appc/spec/schema/common",
+    importpath = "github.com/appc/spec/schema/common",
+    visibility = ["//visibility:public"],
+)

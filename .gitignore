@@ -33,3 +33,5 @@ tests/*.docker
 
 *.swp
 *.aci
+
+/bazel-*

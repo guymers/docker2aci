@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["flag.go"],
+    importmap = "github.com/appc/docker2aci/vendor/github.com/spf13/pflag",
+    importpath = "github.com/spf13/pflag",
+    visibility = ["//visibility:public"],
+)

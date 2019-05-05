@@ -1,0 +1,13 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "device_linux.go",
+        "device_posix.go",
+    ],
+    cgo = True,
+    importmap = "github.com/appc/docker2aci/vendor/github.com/appc/spec/pkg/device",
+    importpath = "github.com/appc/spec/pkg/device",
+    visibility = ["//visibility:public"],
+)
